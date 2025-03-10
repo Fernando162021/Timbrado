@@ -1,4 +1,5 @@
-from utils.firmar_cfdi import sign_cfdi
+from utils.convert_der_to_pem import convert_der_to_pem
+from utils.firmar_cfdi import sign_cfdi, incrustar_sello_en_xml
 from utils.generar_cadena_original import generar_cadena_original
 from utils.generar_cfdi import generate_cfdi
 
@@ -34,13 +35,28 @@ xml_file = 'files/cfdi_personalizado.xml'  # Ruta al archivo XML
 xslt_file = 'files/cadenaoriginal_4_0.xslt'  # Ruta al archivo XSLT
 
 # Ruta al archivo de clave privada .key y certificado .cer
-key_path = 'files/Claveprivada_FIEL_CACX7605101P8_20230509_114423.key'  # Actualiza la ruta
+key_path = 'files/Claveprivada_FIEL_CACX7605101P8.pem'  # Actualiza la ruta
 cert_path = 'files/cacx7605101p8.cer'  # Actualiza la ruta
-password = "12345678a"
+password = '12345678a'
 
 cadena_original = generar_cadena_original(xml_file, xslt_file)
 
 sello_digital = sign_cfdi(cadena_original, key_path, password)
 
-# Mostrar el sello generado
-print("Sello digital:", sello_digital)
+# Llamar a la función para incrustar el sello en el XML
+xml_con_sello = incrustar_sello_en_xml(xml_file, sello_digital)
+
+# Mostrar el archivo con el sello incrustado
+print(f"Archivo XML con el sello incrustado: {xml_con_sello}")
+
+"""
+# Ruta de archivos
+der_key_path = "files/Claveprivada_FIEL_CACX7605101P8_20230509_114423.key"
+pem_key_path = "files/Claveprivada_FIEL_CACX7605101P8.pem"
+
+# Convertir clave
+convert_der_to_pem(der_key_path, pem_key_path, "12345678a")
+
+print(f"Clave convertida y cifrada: {pem_key_path}")
+"""
+

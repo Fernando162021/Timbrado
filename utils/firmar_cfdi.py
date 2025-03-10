@@ -1,5 +1,8 @@
+from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 from cryptography.hazmat.primitives import hashes, serialization
+from lxml import etree
+from pycfdi import Cfdi
 import base64
 
 
@@ -16,7 +19,8 @@ def sign_cfdi(cadena_original, key_path, password):
     with open(key_path, "rb") as key_file:
         private_key = serialization.load_pem_private_key(
             key_file.read(),
-            password=password.encode(),  # Convertir la contraseña a bytes
+            password=password.encode() if password else None,  # Convertir la contraseña a bytes
+            backend=default_backend()
         )
 
     # Firmar la cadena original con SHA-256 y RSA
@@ -27,6 +31,20 @@ def sign_cfdi(cadena_original, key_path, password):
     )
 
     # Convertir la firma a Base64
-    sello = base64.b64encode(signature).decode()
+    sello = base64.b64encode(signature).decode("utf-8")
     return sello
 
+
+def incrustar_sello_en_xml(xml_file, sello_digital):
+    # Leer el archivo XML
+    tree = etree.parse(xml_file)
+    root = tree.getroot()
+
+    # Incrustar el sello digital en el nodo 'Comprobante'
+    root.set("Sello", sello_digital)
+
+    # Guardar el XML con el sello incrustado
+    xml_con_sello = xml_file.replace(".xml", "_con_sello.xml")
+    tree.write(xml_con_sello, pretty_print=True, xml_declaration=True, encoding="UTF-8")
+
+    return xml_con_sello

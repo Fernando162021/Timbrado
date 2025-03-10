@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd" Version="4.0" Serie="A" Folio="12345" Fecha="2025-03-09T18:46:44" FormaPago="01" CondicionesDePago="Contado" SubTotal="1000.00" Moneda="MXN" Total="1160.00" TipoDeComprobante="I" MetodoPago="PUE" LugarExpedicion="36257" Sello="PBvgHg195oI+fGbujgS4sezPggVB3CZ9YFk7k0VYbf7ran7eivDR3iUAZQZQlx44Ccz+OVQ3R0Wesr7NBI1rFK0VmRTYzKFllGZVNsSWkyIeUyNjcJ4+kBEJ3Cv+WeHenhrQaLknjnk1xla53o9SMXgj/g3QSyMoOZqeUGFkSAXPMdBVCp+Qrg3BfMDRAWofjECXO0A696vJL9qsOBI4hbp9GUDxXBvxZaI/cXLy9mh2p9FgAP+e4lBaTD9vka35HRCVJNohpqWa2zf4wKKQyTFkc2fUnD3YtKqb+PmjuoOKFr1b2oATp+zTVeHk0abkYRlznuj4gNIQGT1Ws9SgbA==">
+  <cfdi:Emisor Rfc="AAA010101AAA" Nombre="EMPRESA EMISORA" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="CACX7605101P8" Nombre="XOCHILT CASAS CHAVEZ" UsoCFDI="G03"/>
+  <cfdi:Conceptos>
+    <cfdi:Concepto ClaveProdServ="01010101" Cantidad="1" ClaveUnidad="H87" Descripcion="Producto de prueba" ValorUnitario="1000.00" Importe="1000.00">
+      <cfdi:Impuestos>
+        <cfdi:Traslados>
+          <cfdi:Traslado Base="1000.00" Impuesto="002" TipoFactor="Tasa" TasaOCuota="0.160000" Importe="160.00"/>
+        </cfdi:Traslados>
+      </cfdi:Impuestos>
+    </cfdi:Concepto>
+  </cfdi:Conceptos>
+  <cfdi:Impuestos TotalImpuestosTrasladados="160.00">
+    <cfdi:Traslados>
+      <cfdi:Traslado Base="1000.00" Impuesto="002" TipoFactor="Tasa" TasaOCuota="0.160000" Importe="160.00"/>
+    </cfdi:Traslados>
+  </cfdi:Impuestos>
+</cfdi:Comprobante>
