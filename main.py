@@ -49,6 +49,14 @@ xml_con_sello = incrustar_sello_en_xml(xml_file, sello_digital)
 # Mostrar el archivo con el sello incrustado
 print(f"Archivo XML con el sello incrustado: {xml_con_sello}")
 
+# Timbrar el CFDI con el PAC
+resultado_timbrado = timbrar_cfdi(xml_con_sello)
+if resultado_timbrado.get("success", False):
+    print(f"CFDI timbrado exitosamente!")
+    print(f"Archivo timbrado guardado en: {resultado_timbrado.get('archivo_timbrado')}")
+else:
+    print(f"Error al timbrar: {resultado_timbrado.get('error')}")
+
 """
 # Ruta de archivos
 der_key_path = "files/Claveprivada_FIEL_CACX7605101P8_20230509_114423.key"
